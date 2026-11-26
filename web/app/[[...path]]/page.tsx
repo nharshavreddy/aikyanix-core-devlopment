@@ -3,6 +3,7 @@ import {notFound} from 'next/navigation'
 import Sections, {RichText} from '@/components/Sections'
 import {ProductView} from '@/components/shop/Product'
 import {getSite, imageUrl, POSTS_BASE, type Doc, type Site} from '@/lib/sanity'
+import {config} from '@/site.config'
 
 // One route for every URL: pages at any depth (/, /services/data-platforms, /insights/custom-page ...)
 // insight posts (/insights/<slug>) and products (/products/<slug>). They can't clash because they share this route.
@@ -42,7 +43,7 @@ export async function generateMetadata({params}: Params): Promise<Metadata> {
     openGraph: post
       ? {title, description, url, type: 'article', publishedTime: post.publishedAt}
       : {title, description, url, images: ogImage ? [ogImage] : undefined},
-    robots: process.env.NOINDEX === '1' ? {index: false, follow: false} : doc.noindex ? {index: false, follow: true} : undefined,
+    robots: config.NOINDEX ? {index: false, follow: false} : doc.noindex ? {index: false, follow: true} : undefined,
   }
 }
 

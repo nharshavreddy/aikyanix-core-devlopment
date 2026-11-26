@@ -3,6 +3,7 @@ import {Plus_Jakarta_Sans} from 'next/font/google'
 import Nav, {FloatingCta} from '@/components/Nav'
 import {WishlistLink} from '@/components/shop/Wishlist'
 import {getSite, SITE_URL} from '@/lib/sanity'
+import {config} from '@/site.config'
 import './globals.css'
 
 const jakarta = Plus_Jakarta_Sans({subsets: ['latin'], variable: '--font-jakarta', display: 'swap'})
@@ -15,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: settings.defaultDescription,
     openGraph: {siteName: settings.siteName, type: 'website'},
     // Preview builds (NOINDEX=1): every page asks search engines not to list it.
-    robots: process.env.NOINDEX === '1' ? {index: false, follow: false} : undefined,
+    robots: config.NOINDEX ? {index: false, follow: false} : undefined,
   }
 }
 

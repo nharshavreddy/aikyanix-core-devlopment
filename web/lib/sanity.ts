@@ -1,17 +1,17 @@
 import {readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {createClient} from '@sanity/client'
+import {config} from '@/site.config'
 
 export type Doc = {_id: string; _type: string; [k: string]: any}
 export type Link = {label?: string; page?: {_ref: string}; url?: string}
 export type PageEntry = {doc: Doc; path: string}
 
-const projectId = process.env.SANITY_PROJECT_ID
-const dataset = process.env.SANITY_DATASET || 'production'
+const projectId = config.SANITY_PROJECT_ID
+const dataset = config.SANITY_DATASET
 const offline = process.env.SANITY_OFFLINE === '1'
 
-export const SITE_URL = (process.env.SITE_URL || '').replace(/\/$/, '')
-if (!SITE_URL) throw new Error('SITE_URL is not set (e.g. https://aikyanix.com). Needed for canonical URLs and sitemap.')
+export const SITE_URL = config.SITE_URL
 
 // ponytail: posts live under /insights. Make it a setting if the blog ever moves.
 export const POSTS_BASE = '/insights'

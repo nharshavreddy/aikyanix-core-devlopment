@@ -5,7 +5,10 @@
 //   CONTACT_TO      - comma separated, e.g. dee@aikyanix.com,hr@aikyanix.com
 //   CONTACT_FROM    - e.g. "Website <website@aikyanix.com>" (must be on the verified domain)
 
-type Env = {RESEND_API_KEY: string; CONTACT_TO: string; CONTACT_FROM: string}
+type Env = {RESEND_API_KEY: string; CONTACT_TO: string; CONTACT_FROM?: string}
+
+// Resend's shared test sender works without verifying a domain (it can only deliver to the Resend account's own email).
+const DEFAULT_FROM = 'Aikyanix Website <onboarding@resend.dev>'
 
 // field -> [max length, required]
 const CONTACT = {audience: [20, 1], name: [200, 1], email: [200, 1], company: [200, 1], jobTitle: [200, 0], phone: [50, 0], timeline: [50, 0], engagement: [50, 0], clientRole: [60, 0], message: [5000, 1]} as const
@@ -60,7 +63,7 @@ export async function onRequestPost({request, env}: {request: Request; env: Env}
     method: 'POST',
     headers: {Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json'},
     body: JSON.stringify({
-      from: env.CONTACT_FROM,
+      from: env.CONTACT_FROM || DEFAULT_FROM,
       to: env.CONTACT_TO.split(',').map((s) => s.trim()),
       reply_to: data.email,
       subject: subject.replace(/[\r\n]/g, ' '),
