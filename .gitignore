@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+dist
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+# Not for the repo: confidential source doc (its copy lives in studio/seed/v2.mjs), personal editor settings
+*.docx
+.vscode/

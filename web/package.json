@@ -1,0 +1,22 @@
+{
+  "name": "aikyanix-web",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "rm -rf .next/cache/fetch-cache && next build && mv out/redirects.txt out/_redirects",
+    "build:offline": "SANITY_OFFLINE=1 SITE_URL=http://localhost:3000 npm run build",
+    "preview": "npx serve out"
+  },
+  "dependencies": {
+    "@portabletext/react": "^8.0.1",
+    "@sanity/client": "^8.16.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "typescript": "~5.9.3"
+  }
+}
