@@ -1,0 +1,15 @@
+// Cloudflare Workers deployment (Workers Builds: "Deploy command: npx wrangler deploy").
+// Serves the static site from web/out and runs the contact form at /api/contact.
+// "name" must match the Worker's name in the Cloudflare dashboard.
+{
+  "name": "aikyanix-core-devlopment",
+  "main": "web/worker.ts",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "web/out",
+    "binding": "ASSETS",
+    // Unknown URLs get out/404.html; "/about" serves out/about.html. out/_redirects is applied too.
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

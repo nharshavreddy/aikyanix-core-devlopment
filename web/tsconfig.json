@@ -38,6 +38,7 @@
   "exclude": [
     "functions",
     "node_modules",
-    "scripts"
+    "scripts",
+    "worker.ts"
   ]
 }
